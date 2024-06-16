@@ -1,10 +1,10 @@
 //Encontrará la descripción del problema en el siguente enlace: 
-//https://dmoj.uclv.edu.cu/problem/agame
+//https://dmoj.uclv.edu.cu/problem/inversions
 
 //!----LIBRERIAS---------------------------------------------------------------------------------------
 #include <iostream>
 #include <vector>
-//#include <algorithm>
+#include <algorithm>
 //#include <math.h>
 //#include <memory.h>
 //#include <set>
@@ -36,10 +36,53 @@ const int mod = 1e9 + 7;
 using namespace std;
 //!----Globales----------------------------------------------------------------------------------------
 
-
+long long st[100001*4], st2[100001*4];
 
 //!----FUNCIONES---------------------------------------------------------------------------------------
+void update2(int node, int l, int r, int pos){
+	if(l == r)
+		st2[node]++;
+	else{
+		if(pos <= mid)
+			update2(left,pos);
+		else
+			update2(right,pos);
+		
+		st2[node] = st2[node*2] + st2[node*2+1];
+	}
+}
 
+long long query2(int node, int l, int r, int x, int y){
+	if(l == x && r == y)
+		return st2[node];
+	if(x>y)
+		return 0;
+	
+	return query2(left, x, min(y,mid)) + query2(right, max(x, mid+1), y);
+}
+
+void update(int node, int l, int r, int pos, int val){
+	if(l == r)
+		st[node] += val;
+	else{
+		if(pos <= mid)
+			update(left,pos,val);
+		else
+			update(right,pos,val);
+		
+		st[node] = st[node*2] + st[node*2+1];
+	}
+}
+
+
+long long query(int node, int l, int r, int x, int y){
+	if(l == x && r == y)
+		return st[node];
+	if(x>y)
+		return 0;
+	
+	return query(left, x, min(y,mid)) + query(right, max(x, mid+1), y);
+}
 
 
 //!----MAIN--------------------------------------------------------------------------------------------
@@ -52,37 +95,33 @@ IOS_B;
 	while(t--){
 		int n;
 		cin>>n;
-		string s;
-		cin>>s;
+		vector<long long> vec(n), aux(n);
 		
-		int a = 0, b = 0;
-		vi vec;
 		for(int i = 0; i<n; ++i){
-			if(s[i] == 'A'){
-				if(b != 0)
-					vec.pb(b);
-				b = 0;
-				a++;
-			}
-			if(s[i] == 'B')
-				b++;
+			cin>>vec[i];
 		}
 		
-		if(b != 0)
-			vec.pb(b);
+		aux = vec;
 		
-		if(a%2 == 0)
-			cout<<-1<<"\n";
-		else{
-			int a = 0;
-			for(int i = 0; i<vec.size(); ++i){
-				a = a^vec[i];
-			}
-			a = __builtin_popcount(a);
-			if(a != 0)
-				cout<<"F\n";
-			else
-				cout<<"R\n";	
+		sort(all(aux));
+		
+		for(int i = 0; i<n; ++i){
+			vec[i] = lower_bound(all(aux), vec[i]) - aux.begin();
+		}
+		
+		long long ans = 0;
+		
+		for(int i = 0; i<n; ++i){
+			ans += query(1, 0, n-1, vec[i] + 1, n-1);
+		 	long long a = query2(1, 0, n-1, vec[i] + 1, n-1);
+		 	update(1, 0, n-1, vec[i], a);
+		 	update2(1, 0, n-1, vec[i]);
+		}
+	
+		cout<<ans<<"\n";
+		
+		for(int i = 0; i<100001*4; ++i){
+			st[i] = st2[i] = 0;
 		}
 	}
 

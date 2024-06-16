@@ -1,3 +1,6 @@
+//Encontrara la descripción del problema en el siguente enlace: 
+//https://codeforces.com/problemset/problem/52/C
+
 //!----LIBRERIAS---------------------------------------------------------------------------------------
 #include <iostream>
 #include <vector>

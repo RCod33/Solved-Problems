@@ -1,3 +1,6 @@
+//Encontrará la descripción del problema en el siguente enlace: 
+//https://dmoj.uclv.edu.cu/problem/oci19day1a
+
 //!----LIBRERIAS---------------------------------------------------------------------------------------
 #include <iostream>
 //#include <vector>

@@ -1,3 +1,6 @@
+//Encontrará la descripción del problema en el siguente enlace: 
+//https://dmoj.uclv.edu.cu/problem/bticket
+
 //!----LIBRERIAS---------------------------------------------------------------------------------------
 #include <iostream>
 #include <vector>

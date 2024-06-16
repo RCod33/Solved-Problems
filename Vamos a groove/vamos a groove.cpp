@@ -1,3 +1,6 @@
+//Encontrará la descripción del problema en el siguente enlace: 
+//https://dmoj.uclv.edu.cu/problem/22psn3a
+
 //!----LIBRERIAS---------------------------------------------------------------------------------------
 #include <iostream>
 //#include <vector>

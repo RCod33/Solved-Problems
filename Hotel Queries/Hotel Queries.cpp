@@ -1,3 +1,6 @@
+//Encontrará la descripción del problema en el siguente enlace: 
+//https://cses.fi/problemset/task/1143
+
 //!----LIBRERIAS---------------------------------------------------------------------------------------
 #include <iostream>
 //#include <vector>
